@@ -1,0 +1,5 @@
+zatrzymałem się w trakcie realizacji server.ts
+konieczne dodanie postgres oraz zrozumienie prismy
+
+
+serwer na podstawie express działa (chyba)
