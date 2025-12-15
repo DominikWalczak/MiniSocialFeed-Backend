@@ -4,6 +4,7 @@ import cors from "cors";
 import type { Request, Response } from "express";
 import { db } from "./db/db.js";
 import { UserSchema } from "./utils/zodSchemas.js";
+import authRoutes from "./routes/auth.routes.js"
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use("/auth", authRoutes);
 
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 
