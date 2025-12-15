@@ -2,9 +2,7 @@ import express from "express";
 import 'dotenv/config';
 import cors from "cors";
 import type { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { db } from "./db/db.js";
 import { UserSchema } from "./utils/zodSchemas.js";
 
 const app = express();
@@ -17,18 +15,6 @@ app.use(cors({
 
 app.use(express.json());
 
-//uzyskanie url-u z env
-const connectionString = process.env.DATABASE_URL; 
-
-// Utworzenie puli połączeń do PostgreSQL
-const pool = new Pool({ connectionString });
-
-// Utworzenie adaptera Prisma wykorzystującego pg Pool
-const adapter = new PrismaPg(pool);
-
-// Inicjalizacja klienta Prisma z adapterem PostgreSQL
-const prisma = new PrismaClient({ adapter });
-
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 
     console.log("connected");
@@ -39,7 +25,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/user/me", async (req: Request, res: Response) => {
   try {
     // pobranie danych z PostgreSQL
-    const users = await prisma.user.findMany(); 
+    const users = await db.user.findMany(); 
 
     // weryfikacja czy pobrane dane są kompletne
     const data = UserSchema.safeParse(users);
