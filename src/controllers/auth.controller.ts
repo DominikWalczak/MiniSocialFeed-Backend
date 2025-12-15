@@ -1,8 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
+import type { LoginType } from "../utils/schemas/auth/loginSchema.js";
 
 class AuthController {
 
-    public async login(req: Request, res: Response, next: NextFunction){
+    public async login(req: Request<unknown, unknown, LoginType>, res: Response, next: NextFunction){
         try {
             const { email, password } = req.body;
 
