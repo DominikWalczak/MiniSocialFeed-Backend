@@ -1,19 +1,27 @@
 import { UserModel } from "../models/userModel.js";
 import { comparePassword } from "../utils/password.js";
 
-class AuthService {
+export class AuthService {
     private readonly userModel = new UserModel();
     public async login(email: string, password: string){
         
-        const user = this.userModel.findByEmail(email);
+        // weryfikacja czy konto na podstawie podanego maila istnieje, inaczej error z info
+        const user = await this.userModel.findByEmail(email);
 
         if (!user) {
             const err: any = new Error('Invalid credentials');
             err.status = 401;
             throw err;
         }
-
+        // weryfikacja czy podane hasło jest poprawne, inaczej error z info
         const verifyPass = comparePassword(password, user.password);
 
+        if (!verifyPass){
+            const err: any = new Error('Invalid credentials');
+            err.status = 401;
+            throw err;
+        }
+
+        return 1;
     }
 }

@@ -9,17 +9,19 @@ datasource db {
 
 // Tworzę model user do bazy postgreSQL
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
+  id        Int    @id @default(autoincrement())
+  name      String
+  vorname   String?
+
   userLogin UserLogin?
 }
 
 model UserLogin {
-  id    Int    @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   password String
-  email String @unique
-  userId Int   @unique
+  email    String @unique
+  userId   Int   @unique
 
-  user User    @relation(fields: [userId], references: [id])
+  user     User    @relation(fields: [userId], references: [id])
 
 }
