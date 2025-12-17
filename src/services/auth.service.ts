@@ -1,3 +1,4 @@
+import { UserLoginDto } from "../dto/userLogin.dto.js";
 import { UserModel } from "../models/userModel.js";
 import { comparePassword } from "../utils/password.js";
 
@@ -22,6 +23,9 @@ export class AuthService {
             throw err;
         }
 
+        const userLoginDto = UserLoginDto.fromPrismaUserLogin(user);
+
+        
         return 1;
     }
 }
