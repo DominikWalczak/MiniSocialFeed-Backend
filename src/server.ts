@@ -5,6 +5,7 @@ import type { Request, Response } from "express";
 import { db } from "./db/db.js";
 import { UserSchema } from "./utils/zodSchemas.js";
 import authRoutes from "./routes/auth.routes.js"
+import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const app = express();
 
@@ -45,6 +46,8 @@ app.get("/user/me", async (req: Request, res: Response) => {
     res.status(404)
   }
 });
+// middleware służący do globalnej obsługi błędów
+app.use(errorMiddleware);
 
 // wybór portu na którym działa serwer, 
 // wybrałem 3001 ze względu na to, że 3000 jest zajęty przez frontend

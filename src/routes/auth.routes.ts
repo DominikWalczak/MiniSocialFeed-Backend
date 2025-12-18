@@ -6,6 +6,6 @@ import { LoginSchema } from "../utils/schemas/auth/loginSchema.js";
 // przygotowanie routów auth dla serwera
 const router = Router();
 
-router.post('/login',validationMiddleware(LoginSchema), authController.login)
+router.post('/login',validationMiddleware(LoginSchema), authController.login);
 
 export default router;

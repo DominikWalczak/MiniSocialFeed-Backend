@@ -1,5 +1,6 @@
 import { UserLoginDto } from "../dto/userLogin.dto.js";
 import { UserModel } from "../models/userModel.js";
+import { jwtSignAccessToken } from "../utils/jwt.js";
 import { comparePassword } from "../utils/password.js";
 
 export class AuthService {
@@ -25,7 +26,14 @@ export class AuthService {
 
         const userLoginDto = UserLoginDto.fromPrismaUserLogin(user);
 
-        
-        return 1;
+        // tworzenie tokenu
+        const token = jwtSignAccessToken({
+            id: user.userId,
+            email: user.email,
+        })
+        return {
+            user: userLoginDto,
+            token: token,
+        }
     }
 }

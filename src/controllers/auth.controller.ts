@@ -9,8 +9,15 @@ class AuthController {
         try {
             const { email, password } = req.body;
 
-            const ans = this.authService.login(email, password);
-            return res.status(200).json({message: "Login successful"});
+            const {user, token} = await this.authService.login(email, password);
+
+            return res.status(200).json({
+                message: "Login successful",
+                data: {
+                    user, 
+                    token,
+                },
+            });
         } catch (error) {
             next(error);
         }
