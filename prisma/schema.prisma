@@ -14,14 +14,26 @@ model User {
   vorname   String?
 
   userLogin UserLogin?
+  refreshToken RefreshToken[]
 }
 
 model UserLogin {
   id       Int    @id @default(autoincrement())
   password String
   email    String @unique
-  userId   Int   @unique
+  userId   Int    @unique
 
-  user     User    @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
 
+}
+
+model RefreshToken {
+  id        Int   @id @default(autoincrement())
+  userId    Int
+  tokenHash String 
+  expiresAt DateTime
+  createdAt DateTime
+  revokedAt DateTime
+
+  user      User  @relation(fields: [userId], references: [id])
 }

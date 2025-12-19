@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import type { LoginType } from "../utils/schemas/auth/loginSchema.js";
 import { AuthService } from "../services/auth.service.js";
+import type { LogOutType } from "../utils/schemas/auth/logoutSchema.js";
 
 // klasa zawierająca zbiór funkcji związanych z logowaniem
 class AuthController {
@@ -21,6 +22,11 @@ class AuthController {
         } catch (error) {
             next(error);
         }
+    }
+    public async logout(req: Request<unknown, unknown, LogOutType>, res: Response, next: NextFunction){
+        const { id, token } = req.body;
+        console.log(1)
+        return 1;
     }
 }
 
