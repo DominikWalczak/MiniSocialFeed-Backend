@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const LogOutSchema = z.object({
-    id: z.string(),
     token: z.string(),
 });
 

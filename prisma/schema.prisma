@@ -32,8 +32,8 @@ model RefreshToken {
   userId    Int
   tokenHash String 
   expiresAt DateTime
-  createdAt DateTime
-  revokedAt DateTime
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
 
   user      User  @relation(fields: [userId], references: [id])
 }

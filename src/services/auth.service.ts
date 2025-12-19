@@ -26,14 +26,27 @@ export class AuthService {
 
         const userLoginDto = UserLoginDto.fromPrismaUserLogin(user);
 
+        const payload = { 
+            id: user.userId, 
+            email: user.email 
+        };
         // tworzenie tokenu
-        const token = jwtSignAccessToken({
-            id: user.userId,
-            email: user.email,
-        })
+        const accessToken = jwtSignAccessToken(payload);
+        const refreshToken = jwtSignAccessToken(payload);
+
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + Number(process.env.JWT_REFRESH_EXPIRES_NUMBER_ONLY));
+
+        await this.userModel.saveRefreshToken(user.userId, refreshToken, expiresAt);
+
         return {
             user: userLoginDto,
-            token: token,
+            token: accessToken,
         }
+    }
+    public async logout(token: string){
+        // funkcja służąca do wylogowania
+        await this.userModel.revokeRefreshToken(token);
+        return { message: "Logged out" };
     }
 }

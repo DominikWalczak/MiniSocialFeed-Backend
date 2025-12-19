@@ -24,9 +24,13 @@ class AuthController {
         }
     }
     public async logout(req: Request<unknown, unknown, LogOutType>, res: Response, next: NextFunction){
-        const { id, token } = req.body;
-        console.log(1)
-        return 1;
+        try {
+            const { token } = req.body;
+            const message = await this.authService.logout(token);
+            return res.status(200).json({ message: "message" });
+        } catch (error) {
+            next(error);
+        }
     }
 }
 
