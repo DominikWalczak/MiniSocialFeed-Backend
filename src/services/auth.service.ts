@@ -6,7 +6,7 @@ import { comparePassword } from "../utils/password.js";
 export class AuthService {
     private readonly userModel = new UserModel();
     public async login(email: string, password: string){
-        
+        console.log(email + password);
         // weryfikacja czy konto na podstawie podanego maila istnieje, inaczej error z info
         const user = await this.userModel.findByEmail(email);
 

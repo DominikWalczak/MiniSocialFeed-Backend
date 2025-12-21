@@ -6,9 +6,11 @@ import type { LogOutType } from "../utils/schemas/auth/logoutSchema.js";
 // klasa zawierająca zbiór funkcji związanych z logowaniem
 class AuthController {
     private readonly authService = new AuthService();
-    public async login(req: Request<unknown, unknown, LoginType>, res: Response, next: NextFunction){
+    public login = async (req: Request<unknown, unknown, LoginType>, res: Response, next: NextFunction) => {
         try {
+            console.log(req.body)
             const { email, password } = req.body;
+            console.log(email + password);
 
             const {user, token} = await this.authService.login(email, password);
 
@@ -23,7 +25,7 @@ class AuthController {
             next(error);
         }
     }
-    public async logout(req: Request<unknown, unknown, LogOutType>, res: Response, next: NextFunction){
+    public logout = async (req: Request<unknown, unknown, LogOutType>, res: Response, next: NextFunction) => {
         try {
             const { token } = req.body;
             const message = await this.authService.logout(token);
