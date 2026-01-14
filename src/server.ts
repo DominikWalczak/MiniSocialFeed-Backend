@@ -4,6 +4,7 @@ import cors from "cors";
 
 import userRoutes from "./routes/user.rotues.js"
 import authRoutes from "./routes/auth.routes.js"
+import postRoutes from "./routes/post.routes.js"
 
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 
@@ -21,6 +22,8 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+
+app.use("/post", authRoutes);
 
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 
