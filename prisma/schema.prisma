@@ -9,13 +9,14 @@ datasource db {
 
 // Tworzę model user do bazy postgreSQL
 model User {
-  id        Int    @id @default(autoincrement())
-  name      String
-  vorname   String
-  password  String
-  email     String @unique
+  id           Int    @id @default(autoincrement())
+  name         String
+  vorname      String
+  password     String
+  email        String @unique
 
   refreshToken RefreshToken[]
+  post         Post[]
 }
 
 model RefreshToken {
@@ -27,4 +28,12 @@ model RefreshToken {
   revokedAt DateTime?
 
   user      User  @relation(fields: [userId], references: [id])
+}
+
+model Post {
+  id        Int   @id @default(autoincrement())
+  authorId  Int
+  createdAt DateTime @default(now()) 
+
+  user      User @relation (fields: [authorId], references: [id])
 }
