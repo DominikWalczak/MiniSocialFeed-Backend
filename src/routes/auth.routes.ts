@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { authController } from "../controllers/auth.controller.js";
 import { validationMiddleware } from "../middlewares/validation.middleware.js";
-import { LoginSchema } from "../utils/schemas/auth/loginSchema.js";
-import { LogOutSchema } from "../utils/schemas/auth/logoutSchema.js";
+import { LoginSchema } from "../utils/schemas/auth.js";
+import { LogOutSchema } from "../utils/schemas/auth.js";
 
 // przygotowanie routów auth dla serwera
 const router = Router();

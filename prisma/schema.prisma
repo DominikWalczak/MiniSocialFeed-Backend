@@ -11,20 +11,11 @@ datasource db {
 model User {
   id        Int    @id @default(autoincrement())
   name      String
-  vorname   String?
+  vorname   String
+  password  String
+  email     String @unique
 
-  userLogin UserLogin?
   refreshToken RefreshToken[]
-}
-
-model UserLogin {
-  id       Int    @id @default(autoincrement())
-  password String
-  email    String @unique
-  userId   Int    @unique
-
-  user     User   @relation(fields: [userId], references: [id])
-
 }
 
 model RefreshToken {
