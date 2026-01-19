@@ -17,14 +17,11 @@ export const AuthMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
             ? t.split(" ")[1] 
             : t;
 
-        console.log(4);
-        console.log(t);
-        console.log(token);
-        console.log(4);
+        
+        if (!token) throw { message: "No token provided", status: 401};
         const tokenCheck = jwtVerifyAccessToken(token);
-        console.log(4);
         req.user = { userId: tokenCheck.id}
-        console.log(5);
+
 
         next();
     } catch (error) {
