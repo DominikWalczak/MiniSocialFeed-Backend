@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/', AuthMiddleware, postController.getList);
 router.post('/', AuthMiddleware, postController.post);
-router.delete('/', AuthMiddleware, postController.deletePost);
+router.delete('/:id', AuthMiddleware, postController.deletePost);
 
 
 export default router;

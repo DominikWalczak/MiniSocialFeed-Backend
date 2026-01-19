@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// plik w którym będę przechowywać schematy zod oraz otypowania
+// plik w którym będę przechowywać schematy zod oraz otypowania do users
 export const UserSchema = z.object({
     id: z.number(),
     name: z.string(),

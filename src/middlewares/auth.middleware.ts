@@ -9,13 +9,22 @@ export interface AuthRequest extends Request {
 }
 export const AuthMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
+        console.log(0);
         const t = req.headers.authorization;
+        console.log(1);
         if (!t) throw { message: "No token provided", status: 401};
         const token = t.startsWith("Bearer ") 
             ? t.split(" ")[1] 
             : t;
+
+        console.log(4);
+        console.log(t);
+        console.log(token);
+        console.log(4);
         const tokenCheck = jwtVerifyAccessToken(token);
+        console.log(4);
         req.user = { userId: tokenCheck.id}
+        console.log(5);
 
         next();
     } catch (error) {

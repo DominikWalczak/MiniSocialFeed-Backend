@@ -1,7 +1,7 @@
 import type { NextFunction, Response } from "express";
 import _ from 'lodash';
 import type { AuthRequest } from "../middlewares/auth.middleware.js";
-import { UserSchema } from "../utils/zod.schemas.js";
+import { UserSchema } from "../utils/schemas/user.js";
 import { db } from "../db/db.js";
 
 interface UserResponse{
@@ -27,7 +27,7 @@ class UserController {
 
             if(!data.success){
             // Jeśli nie to rzucamy błąd który zostanie zcatchowany i odpowiednio zapisany w logach
-            throw data.error.message
+            throw { message: data.error.message, status: 404}
             }
             const userPick = _.pick(data.data, ['name','vorname','email'])
             // Jeśli wszystko się powiedzie to zwracamy dane i status do frontendu/mobile
