@@ -9,9 +9,7 @@ export interface AuthRequest extends Request {
 }
 export const AuthMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        console.log(0);
         const t = req.headers.authorization;
-        console.log(1);
         if (!t) throw { message: "No token provided", status: 401};
         const token = t.startsWith("Bearer ") 
             ? t.split(" ")[1] 

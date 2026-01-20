@@ -15,15 +15,13 @@ const app = express();
 
 // autoryzacja adresu frontendu upoważnionego do zapytań
 app.use(cors({
-  origin: "http://localhost:3001",
-  credentials: true
+  origin: "*", 
+  credentials: true 
 }));
 
 app.use(express.json());
 
-console.log("Montowanie tras...");
 app.use("/auth", authRoutes);
-console.log("Trasy zamontowane.");
 
 app.use("/post", postRoutes);
 
@@ -45,6 +43,6 @@ app.use("/user", userRoutes);
 app.use(errorMiddleware);
 
 // wybór portu na którym działa serwer, 
-// wybrałem 3001 ze względu na to, że 3000 jest zajęty przez frontend
+// wybrałem 4000 ze względu na to, że bazowy port czasami jest zajmowany przez losowe aplikacje
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
