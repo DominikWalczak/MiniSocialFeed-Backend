@@ -20,7 +20,7 @@ export class AuthService {
             throw err;
         }
         // weryfikacja czy podane hasło jest poprawne, inaczej error z info
-        const verifyPass = comparePassword(password, user.password);
+        const verifyPass = await comparePassword(password, user.password);
 
         if (!verifyPass){
             const err: HttpError = new Error('Invalid credentials');
@@ -29,7 +29,7 @@ export class AuthService {
         }
 
         // wybieram tylko userId oraz email
-        const userPick = _.pick(user, ['userId','email'])
+        const userPick = _.pick(user, ['id','email'])
 
         const payload = { 
             id: user.id, 
