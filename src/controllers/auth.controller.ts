@@ -1,12 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
-import type { LoginType } from "../utils/schemas/auth.js";
+import type { LoginDataType, LoginType } from "../utils/schemas/auth.js";
 import { AuthService } from "../services/auth.service.js";
 import type { LogOutType } from "../utils/schemas/auth.js";
 
 // klasa zawierająca zbiór funkcji związanych z logowaniem
 class AuthController {
     private readonly authService = new AuthService();
-    public login = async (req: Request<unknown, unknown, LoginType>, res: Response, next: NextFunction) => {
+    public login = async (req: Request<unknown, unknown, LoginType>, res: Response<LoginDataType>, next: NextFunction) => {
         try {
             const { email, password } = req.body;
 

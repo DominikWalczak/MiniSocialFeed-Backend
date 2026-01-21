@@ -14,3 +14,16 @@ export const LogOutSchema = z.object({
 
 export type LogOutType = z.infer<typeof LogOutSchema>;
 
+export const LoginDataSchema = z.object({
+    data: z.object({
+        accessToken: z.string(),
+        refreshToken: z.string(),
+        user: z.object({
+            id: z.number(),
+            email: z.string(),
+        }),
+    }),
+    message: z.string()
+})
+
+export type LoginDataType = z.infer<typeof LoginDataSchema>;
