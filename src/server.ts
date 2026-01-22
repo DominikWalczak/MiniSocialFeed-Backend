@@ -2,7 +2,7 @@ import express from "express";
 import 'dotenv/config';
 import cors from "cors";
 
-import userRoutes from "./routes/user.rotues.js"
+import userRoutes from "./routes/user.routes.js"
 import authRoutes from "./routes/auth.routes.js"
 import postRoutes from "./routes/post.routes.js"
 
@@ -25,10 +25,6 @@ app.use("/auth", authRoutes);
 
 app.use("/post", postRoutes);
 
-app.post("/test-login", (req, res) => {
-  console.log("TEST LOGIN HIT!");
-  res.json({ message: "Działa bezpośrednio w server.ts" });
-});
 app.use(express.json())
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 

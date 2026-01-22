@@ -1,8 +1,9 @@
-import type { NextFunction, Response } from "express";
+import type { NextFunction, Response, Request } from "express";
 import _ from 'lodash';
 import type { AuthRequest } from "../middlewares/auth.middleware.js";
 import { UserSchema } from "../utils/schemas/user.js";
 import { db } from "../db/db.js";
+import { hashPassword } from "../utils/password.js";
 
 interface UserResponse{
   name: string;
@@ -50,11 +51,13 @@ class UserController {
 
             if (user) throw { message: "User with such a credentials already exists", status: 401};
 
+            const hashedPass = await hashPassword(req.body.password);
             const newUser = await db.user.create({
                 data: {
                     email: email,
                     name: req.body.name,
-                    vorname: req.body.vorname
+                    vorname: req.body.vorname,
+                    password: hashedPass,
                 }
             })
 
