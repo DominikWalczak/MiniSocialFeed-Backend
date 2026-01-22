@@ -10,6 +10,10 @@ interface UserResponse{
   email: string;
 }
 
+interface CreateResponse {
+    message: string;
+}
+
 class UserController {
 
     public userMe = async (req: AuthRequest, res: Response<UserResponse>, next: NextFunction) => {
@@ -31,12 +35,38 @@ class UserController {
             }
             const userPick = _.pick(data.data, ['name','vorname','email'])
             // Jeśli wszystko się powiedzie to zwracamy dane i status do frontendu/mobile
-            res.status(200).json(userPick)
+            return res.status(200).json(userPick);
         } catch (error) {
             console.log("/user/me Endpoint error: " + error);
             next(error);
         }
+    }
+    public create = async (req: Request, res: Response<CreateResponse>, next: NextFunction) {
+        try {
+            if (!req.body) throw { message: "Required data wasn't passed", status: 401};
+            const email = req.body.email;
+
+            const user = await db.user.findUnique({ where: { email }}); 
+
+            if (user) throw { message: "User with such a credentials already exists", status: 401};
+
+            const newUser = await db.user.create({
+                data: {
+                    email: email,
+                    name: req.body.name,
+                    vorname: req.body.vorname
+                }
+            })
+
+            if (!newUser) throw { message: "An error occurred and user wasn't created", status: 401};
+
+            return res.status(201).json({message: "User created successfully"});
+        } catch (error) {
+            console.log("/user/create Endpoint error: " + error);
+            next(error);
         }
+    }
+
 }
 
 export const userController = new UserController();
