@@ -42,7 +42,7 @@ class UserController {
             next(error);
         }
     }
-    public create = async (req: Request, res: Response<CreateResponse>, next: NextFunction) {
+    public create = async (req: Request, res: Response<CreateResponse>, next: NextFunction) => {
         try {
             if (!req.body) throw { message: "Required data wasn't passed", status: 401};
             const email = req.body.email;

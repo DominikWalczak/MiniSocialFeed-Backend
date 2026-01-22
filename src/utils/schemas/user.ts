@@ -10,7 +10,7 @@ export const UserSchema = z.object({
 })
 
 export const createUserSchema = z.object({
-    emai: z.string().email(),
+    email: z.string().email(),
     name: z.string(),
     vorname: z.string(),
     password: z.string()
