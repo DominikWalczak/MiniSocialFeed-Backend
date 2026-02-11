@@ -18,17 +18,16 @@ app.use(cors({
   origin: `${process.env.FRONTEND_URL}`, 
 }));
 
-app.use(express.json());
 
 app.use("/auth", authRoutes);
 
 app.use("/post", postRoutes);
 
-app.use(express.json())
+app.use(express.json());
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 
     console.log("connected");
-    res.send("connected")
+    res.json({ status: "connected" })
 });
 
 // endpoint /user/me

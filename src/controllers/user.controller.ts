@@ -38,7 +38,6 @@ class UserController {
             // Jeśli wszystko się powiedzie to zwracamy dane i status do frontendu/mobile
             return res.status(200).json(userPick);
         } catch (error) {
-            console.log("/user/me Endpoint error: " + error);
             next(error);
         }
     }
@@ -65,7 +64,6 @@ class UserController {
 
             return res.status(201).json({message: "User created successfully"});
         } catch (error) {
-            console.log("/user/create Endpoint error: " + error);
             next(error);
         }
     }

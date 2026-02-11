@@ -28,7 +28,7 @@ class AuthController {
         try {
             const { token } = req.body;
             const message = await this.authService.logout(token);
-            return res.status(200).json({ message: "message" });
+            return res.status(200).json({ message: message });
         } catch (error) {
             next(error);
         }
