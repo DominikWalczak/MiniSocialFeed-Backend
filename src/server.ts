@@ -15,8 +15,7 @@ const app = express();
 
 // autoryzacja adresu frontendu upoważnionego do zapytań
 app.use(cors({
-  origin: "*", 
-  credentials: true 
+  origin: `${process.env.FRONTEND_URL}`, 
 }));
 
 app.use(express.json());
