@@ -23,8 +23,15 @@ class PostController {
                 orderBy: {
                     createdAt: 'desc',
                 },
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            vorname: true,
+                        },
+                    },
+                },
             });
-
             const listCheck = PostSchema.safeParse(result);
 
             if (!listCheck.success) throw { message: listCheck.error.message, status: 404}

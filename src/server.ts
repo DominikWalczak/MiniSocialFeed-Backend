@@ -13,6 +13,8 @@ import type { Request, Response, NextFunction } from "express";
 
 const app = express();
 
+app.use(express.json());
+
 // autoryzacja adresu frontendu upoważnionego do zapytań
 app.use(cors({
   origin: `${process.env.FRONTEND_URL}`, 
@@ -23,7 +25,6 @@ app.use("/auth", authRoutes);
 
 app.use("/post", postRoutes);
 
-app.use(express.json());
 // podstawy endpoint GET/, weryfikacja czy nawiązano połączenie
 app.get("/", (req: Request, res: Response) => { 
     console.log("connected");
